@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.3.0](https://github.com/youngjinsin-colosseum/packages-and-release-please-test/compare/v1.2.6...v1.3.0) (2026-05-13)
+
+
+### Features
+
+* hi ([#29](https://github.com/youngjinsin-colosseum/packages-and-release-please-test/issues/29)) ([a4564ec](https://github.com/youngjinsin-colosseum/packages-and-release-please-test/commit/a4564ecbc83232589c0872653e0511373972ebcd))
+
+
+### Bug Fixes
+
+* 수정 ([390c57f](https://github.com/youngjinsin-colosseum/packages-and-release-please-test/commit/390c57f2f0c7ca9d65f48ec3b5f6cec42d2dea5c))
+
+
+### Code Refactoring
+
+* 정리 ([390c57f](https://github.com/youngjinsin-colosseum/packages-and-release-please-test/commit/390c57f2f0c7ca9d65f48ec3b5f6cec42d2dea5c))
+* 정리  fix: 수정  style: 정리 ([#27](https://github.com/youngjinsin-colosseum/packages-and-release-please-test/issues/27)) ([390c57f](https://github.com/youngjinsin-colosseum/packages-and-release-please-test/commit/390c57f2f0c7ca9d65f48ec3b5f6cec42d2dea5c))
+
 ## [1.2.6](https://github.com/youngjinsin-colosseum/packages-and-release-please-test/compare/v1.2.5...v1.2.6) (2026-05-13)
 
 
