@@ -1,5 +1,5 @@
 package com.sample;
 
-public class MyTest4 {
+public class MyTest5 {
 
 }
