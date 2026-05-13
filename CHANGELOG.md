@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/youngjinsin-colosseum/packges-and-release-please-test/compare/v1.0.0...v1.0.1) (2026-05-13)
+
+
+### Bug Fixes
+
+* patch verion up test ([0cb6ea5](https://github.com/youngjinsin-colosseum/packges-and-release-please-test/commit/0cb6ea550ae9991e68621002f2034b0ebf9a1bad))
+
 ## [1.0.0](https://github.com/youngjinsin-colosseum/packges-and-release-please-test/compare/v0.0.6...v1.0.0) (2026-05-13)
 
 
