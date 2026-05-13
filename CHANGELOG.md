@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.0.0](https://github.com/youngjinsin-colosseum/packges-and-release-please-test/compare/v0.0.6...v1.0.0) (2026-05-13)
+
+
+### ⚠ BREAKING CHANGES
+
+* breaking changes version numbering test
+
+### Miscellaneous Chores
+
+* breaking changes version numbering test ([f2c79da](https://github.com/youngjinsin-colosseum/packges-and-release-please-test/commit/f2c79da21ff114645541a37c7c94183cf4d35ea5))
+
 ## [0.0.6](https://github.com/youngjinsin-colosseum/packges-and-release-please-test/compare/v0.0.5...v0.0.6) (2026-05-13)
 
 
