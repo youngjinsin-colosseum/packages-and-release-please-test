@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.4](https://github.com/youngjinsin-colosseum/packages-and-release-please-test/compare/v1.2.3...v1.2.4) (2026-05-13)
+
+
+### Bug Fixes
+
+* asdasd ([36d7ab2](https://github.com/youngjinsin-colosseum/packages-and-release-please-test/commit/36d7ab2980147d89274b5dcc8b16684c2cb68915))
+
 ## [1.2.3](https://github.com/youngjinsin-colosseum/packges-and-release-please-test/compare/v1.2.2...v1.2.3) (2026-05-13)
 
 
