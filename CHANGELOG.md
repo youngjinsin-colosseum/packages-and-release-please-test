@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/youngjinsin-colosseum/packges-and-release-please-test/compare/v1.2.0...v1.2.1) (2026-05-13)
+
+
+### Bug Fixes
+
+* workflow_call test ([ccd687e](https://github.com/youngjinsin-colosseum/packges-and-release-please-test/commit/ccd687e3afc73a80e763d8b565374aa57bd66870))
+
 ## [1.2.0](https://github.com/youngjinsin-colosseum/packges-and-release-please-test/compare/v1.1.3...v1.2.0) (2026-05-13)
 
 
