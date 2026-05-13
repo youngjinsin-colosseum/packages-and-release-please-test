@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.1](https://github.com/youngjinsin-colosseum/packges-and-release-please-test/compare/v1.1.0...v1.1.1) (2026-05-13)
+
+
+### Miscellaneous Chores
+
+* release-please-config.json 수정 ([caaaee3](https://github.com/youngjinsin-colosseum/packges-and-release-please-test/commit/caaaee3b86ce0ba56ec92f91e2e3518ca00659dd))
+* release-please-config.json 수정 ([b7c152d](https://github.com/youngjinsin-colosseum/packges-and-release-please-test/commit/b7c152d454681bbca9800da8f280091b46bddebd))
+
 ## [1.1.0](https://github.com/youngjinsin-colosseum/packges-and-release-please-test/compare/v1.0.1...v1.1.0) (2026-05-13)
 
 
