@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.2](https://github.com/youngjinsin-colosseum/packges-and-release-please-test/compare/v1.1.1...v1.1.2) (2026-05-13)
+
+
+### Documentation
+
+* README.md 추가 ([1191ca5](https://github.com/youngjinsin-colosseum/packges-and-release-please-test/commit/1191ca54acdaaaf28d5451b47730357d2bd87ab7))
+
 ## [1.1.1](https://github.com/youngjinsin-colosseum/packges-and-release-please-test/compare/v1.1.0...v1.1.1) (2026-05-13)
 
 
