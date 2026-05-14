@@ -92,7 +92,7 @@ jobs:
       pull-requests: write
       issues: write
     steps:
-      - name: Add auto-release:published label to release PR
+      - name: "Add autorelease: published label to release PR"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO: ${{ github.repository }}
@@ -103,15 +103,15 @@ jobs:
             echo "::warning::No PR found for commit ${SHA}"
             exit 0
           fi
-          gh label create "auto-release: published" \
+          gh label create "autorelease: published" \
             --color "0E8A16" \
             --description "Release auto-published" \
             --repo "${REPO}" 2>/dev/null || true
-          gh pr edit "$PR_NUMBER" --add-label "auto-release: published" --repo "${REPO}"
+          gh pr edit "$PR_NUMBER" --add-label "autorelease: published" --repo "${REPO}"
           {
             echo "## 🏷️ Release PR 라벨 추가됨"
             echo ""
             echo "- **PR**: #${PR_NUMBER}"
-            echo "- **라벨**: \`auto-release: published\`"
+            echo "- **라벨**: \`autorelease: published\`"
             echo ""
           } >> $GITHUB_STEP_SUMMARY
