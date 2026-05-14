@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.7.1](https://github.com/youngjinsin-colosseum/packages-and-release-please-test/compare/v1.7.0...v1.7.1) (2026-05-14)
+
+
+### Bug Fixes
+
+* 버그 수정 ([bb15fad](https://github.com/youngjinsin-colosseum/packages-and-release-please-test/commit/bb15fadd8fcf7045de27ca18944c5115d937704a))
+* 버그 수정2 ([4ed738b](https://github.com/youngjinsin-colosseum/packages-and-release-please-test/commit/4ed738be24307eb918acca4ddc76025388c328d9))
+
 ## [1.7.0](https://github.com/youngjinsin-colosseum/packages-and-release-please-test/compare/v1.6.0...v1.7.0) (2026-05-14)
 
 
