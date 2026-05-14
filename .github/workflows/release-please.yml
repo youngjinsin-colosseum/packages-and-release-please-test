@@ -50,6 +50,12 @@ jobs:
             echo ""
           } >> $GITHUB_STEP_SUMMARY
 
+      - name: Auto-merge SNAPSHOT PR
+        if: steps.release.outputs.release_created == 'true' && steps.release.outputs.pr != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh pr merge ${{ steps.release.outputs.pr }} --auto --merge
+
       - name: PR Summary
         if: steps.release.outputs.pr != ''
         run: |
