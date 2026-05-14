@@ -4,6 +4,6 @@ package com.sample;
  * 한글 깨짐?
  * @author sin
  */
-public class MyTestTest {
+public class MyTestTest2 {
 
 }
