@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.1](https://github.com/youngjinsin-colosseum/packages-and-release-please-test/compare/v1.8.0...v1.8.1) (2026-05-14)
+
+
+### Bug Fixes
+
+* snapshot PR auto merge 테스트 ([6ca22f5](https://github.com/youngjinsin-colosseum/packages-and-release-please-test/commit/6ca22f50275b74c22bc7adc74c74df37f8734c3e))
+
 ## [1.8.0](https://github.com/youngjinsin-colosseum/packages-and-release-please-test/compare/v1.7.2...v1.8.0) (2026-05-14)
 
 
