@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.0](https://github.com/youngjinsin-colosseum/packages-and-release-please-test/compare/v1.4.0...v1.5.0) (2026-05-14)
+
+
+### Features
+
+* 설정 수정 테스트 ([029cd9a](https://github.com/youngjinsin-colosseum/packages-and-release-please-test/commit/029cd9abe12f05a854dcad169f1eba17796061b2))
+
 ## [1.4.0](https://github.com/youngjinsin-colosseum/packages-and-release-please-test/compare/v1.3.0...v1.4.0) (2026-05-14)
 
 
