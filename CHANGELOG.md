@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.0](https://github.com/youngjinsin-colosseum/packages-and-release-please-test/compare/v1.5.0...v1.6.0) (2026-05-14)
+
+
+### Features
+
+* release-type java로 수정 ([71b0d84](https://github.com/youngjinsin-colosseum/packages-and-release-please-test/commit/71b0d847ff8a3c768001119bb237318c7ff9bee0))
+
 ## [1.5.0](https://github.com/youngjinsin-colosseum/packages-and-release-please-test/compare/v1.4.0...v1.5.0) (2026-05-14)
 
 
