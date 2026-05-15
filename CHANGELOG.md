@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.4](https://github.com/youngjinsin-colosseum/packages-and-release-please-test/compare/v1.8.3...v1.8.4) (2026-05-15)
+
+
+### Bug Fixes
+
+* bug fix ([5edc082](https://github.com/youngjinsin-colosseum/packages-and-release-please-test/commit/5edc08291bb2f6df0cdef7e3e288b7e7f0c8b18c))
+
 ## [1.8.3](https://github.com/youngjinsin-colosseum/packages-and-release-please-test/compare/v1.8.2...v1.8.3) (2026-05-15)
 
 
