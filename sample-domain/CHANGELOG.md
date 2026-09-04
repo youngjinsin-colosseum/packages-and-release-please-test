@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.10.0](https://github.com/youngjinsin-colosseum/packages-and-release-please-test/compare/sample-domain-v1.9.0...sample-domain-v1.10.0) (2026-09-04)
+
+
+### Features
+
+* [CL1-0001] sample-domain 인사말 기능 추가 ([#55](https://github.com/youngjinsin-colosseum/packages-and-release-please-test/issues/55)) ([521641f](https://github.com/youngjinsin-colosseum/packages-and-release-please-test/commit/521641f449363066a578ac96f1c0283797b3ba29))
+
 ## [1.9.0](https://github.com/youngjinsin-colosseum/packages-and-release-please-test/compare/v1.8.4...v1.9.0) (2026-09-04)
 
 
