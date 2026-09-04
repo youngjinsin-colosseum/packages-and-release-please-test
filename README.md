@@ -21,8 +21,9 @@ Gradle 멀티모듈 Java 라이브러리. **release-please**로 모듈별 독립
 6. [설정 레퍼런스](#6-설정-레퍼런스)
 7. [라벨](#7-라벨)
 8. [워크플로우](#8-워크플로우)
-9. [새 모듈 추가하기](#9-새-모듈-추가하기)
-10. [트러블슈팅](#10-트러블슈팅)
+9. [권한과 리포 설정](#9-권한과-리포-설정)
+10. [새 모듈 추가하기](#10-새-모듈-추가하기)
+11. [트러블슈팅](#11-트러블슈팅)
 
 ---
 
@@ -459,22 +460,99 @@ main 푸시마다 실행됩니다.
 
 ### 필요한 권한
 
-| Job | 권한 | 이유 |
-| --- | --- | --- |
-| `release-please` | `contents: write` | 태그·Release 생성 |
-| | `pull-requests: write` | Release PR 생성 |
-| `publish` | `contents: read` | 태그 checkout |
-| | `packages: write` | GitHub Packages 업로드 |
-| `label-published` | `pull-requests: write` | PR에 라벨 부착 |
-| | `issues: write` | 라벨 생성 (라벨은 issues API 리소스) |
-
-> `permissions` 블록을 선언하면 명시하지 않은 스코프는 전부 `none`이 됩니다.
->
-> 리포 설정의 `Settings → Actions → General → Allow GitHub Actions to create and approve pull requests`가 꺼져 있으면 release-please가 PR을 만들지 못합니다.
+`GITHUB_TOKEN`만 사용하며, job별 최소 권한을 명시합니다. 자세한 내용은 [9. 권한과 리포 설정](#9-권한과-리포-설정)을 참고하세요.
 
 ---
 
-## 9. 새 모듈 추가하기
+## 9. 권한과 리포 설정
+
+이 리포는 **`GITHUB_TOKEN`만 사용합니다.** 별도 PAT나 GitHub App 토큰을 등록할 필요가 없습니다.
+
+### Job별 부여 권한
+
+워크플로우 상단 블록과 job별 블록으로 최소 권한만 부여합니다. 실제 실행에서 부여된 값입니다.
+
+| Job | Contents | PullRequests | Issues | Packages |
+| --- | --- | --- | --- | --- |
+| `release-please` | write | write | write | — |
+| `publish` | read | — | — | write |
+| `label-published` | — | write | write | — |
+
+`Metadata: read`는 모든 job에 자동으로 부여됩니다.
+
+### 각 권한이 필요한 이유
+
+| 권한 | 사용처 |
+| --- | --- |
+| `contents: write` | 태그·GitHub Release 생성, Release PR 브랜치 푸시 |
+| `pull-requests: write` | Release PR 생성·갱신, `gh pr edit --add-label` |
+| `issues: write` | 라벨 생성·관리 |
+| `contents: read` | 릴리스 태그 checkout |
+| `packages: write` | GitHub Packages 업로드 |
+
+> **라벨은 issues API 리소스입니다.** PR에 붙이는 라벨이라도 `issues: write`가 필요합니다. `pull-requests: write`만 주면 라벨 단계에서 `Resource not accessible by integration`이 발생합니다.
+
+### `permissions` 블록의 동작
+
+**블록을 선언하면 명시하지 않은 스코프는 전부 `none`이 됩니다.** 워크플로우 상단에 `contents: write`가 있어도, job이 자체 블록을 가지면 상단 값을 물려받지 않습니다.
+
+`label-published`가 `contents` 권한 없이 동작하는 것이 그 예입니다 — checkout을 하지 않으므로 문제없습니다.
+
+### 재사용 워크플로우(`publish.yml`)의 권한
+
+호출하는 쪽이 선언한 `permissions`가 상한이 됩니다.
+
+```yaml
+publish:
+  uses: ./.github/workflows/publish.yml
+  permissions:
+    contents: read
+    packages: write
+  secrets: inherit
+```
+
+`GITHUB_TOKEN` 자체는 `secrets: inherit` 없이도 재사용 워크플로우에 전달됩니다. `secrets: inherit`은 그 외 시크릿까지 함께 넘기기 위한 설정입니다.
+
+### Gradle 배포 인증
+
+`publish.yml`이 `GITHUB_TOKEN`을 그대로 Gradle에 넘깁니다.
+
+```yaml
+env:
+  GPR_USER: x-access-token
+  GPR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+```
+
+사용자명은 `x-access-token` 고정입니다. `build-logic/src/main/kotlin/sample.publish-conventions.gradle.kts`가 이 두 환경변수를 읽습니다 (Gradle 속성 `gpr.user` / `gpr.token`이 있으면 그쪽이 우선).
+
+### 리포 설정
+
+`Settings → Actions → General → Workflow permissions`:
+
+| 설정 | 필요 여부 |
+| --- | --- |
+| **Allow GitHub Actions to create and approve pull requests** | **필수.** 꺼져 있으면 release-please가 Release PR을 만들지 못합니다 |
+| Read and write permissions / Read repository contents | **무관.** 모든 job이 `permissions`를 명시하므로 기본값의 영향을 받지 않습니다 |
+
+`permissions` 블록은 기본값이 읽기 전용이어도 write로 올려 받을 수 있습니다. 그 설정은 **블록이 없을 때의 기본값**만 정합니다.
+
+### 제약 — GITHUB_TOKEN 이벤트는 워크플로우를 트리거하지 않습니다
+
+`GITHUB_TOKEN`으로 만든 태그·Release는 **다른 워크플로우를 실행시키지 않습니다.** 무한 루프를 막기 위한 GitHub 정책입니다.
+
+그래서 이 리포는 배포를 `on: push: tags` 같은 별도 트리거로 분리하지 않고, `release-please.yml` 안에서 `uses:`로 `publish.yml`을 직접 호출합니다. 같은 실행 안에서 이어지므로 트리거 제약을 받지 않습니다.
+
+### PAT가 필요해지는 경우
+
+현재 구조에서는 불필요하지만, 아래 상황에서는 `GITHUB_TOKEN`으로 부족합니다.
+
+- 태그·Release 이벤트로 **다른 워크플로우를 트리거**하고 싶을 때
+- **다른 리포지토리**에 릴리스하거나 배포할 때
+- **브랜치 보호 규칙을 우회**해야 할 때 (`GITHUB_TOKEN`은 우회 불가)
+
+---
+
+## 10. 새 모듈 추가하기
 
 `sample-support` 추가 시 수행한 절차입니다.
 
@@ -547,7 +625,7 @@ include(
 
 ---
 
-## 10. 트러블슈팅
+## 11. 트러블슈팅
 
 ### Release PR이 안 생깁니다
 
