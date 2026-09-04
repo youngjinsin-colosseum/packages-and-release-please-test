@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.0](https://github.com/youngjinsin-colosseum/packages-and-release-please-test/compare/v1.8.4...v1.9.0) (2026-09-04)
+
+
+### Features
+
+* [CL1-0000] 테스트 기능 개발 커밋 ([#52](https://github.com/youngjinsin-colosseum/packages-and-release-please-test/issues/52)) ([ba12b51](https://github.com/youngjinsin-colosseum/packages-and-release-please-test/commit/ba12b513a937eb25059320617aef874a82db002d))
+
 ## [1.8.4](https://github.com/youngjinsin-colosseum/packages-and-release-please-test/compare/v1.8.3...v1.8.4) (2026-05-15)
 
 
