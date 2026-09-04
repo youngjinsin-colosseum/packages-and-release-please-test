@@ -18,15 +18,7 @@ jobs:
   release-please:
     runs-on: ubuntu-latest
     outputs:
-      release_created: ${{ steps.release.outputs.release_created }}
-      tag_name: ${{ steps.release.outputs.tag_name }}
-      version: ${{ steps.release.outputs.version }}
-      major: ${{ steps.release.outputs.major }}
-      minor: ${{ steps.release.outputs.minor }}
-      patch: ${{ steps.release.outputs.patch }}
-      pr: ${{ steps.release.outputs.pr }}
-      upload_url: ${{ steps.release.outputs.upload_url }}
-      html_url: ${{ steps.release.outputs.html_url }}
+      publish_matrix: ${{ steps.matrix.outputs.matrix }}
     steps:
       - name: Run release-please
         id: release
@@ -37,41 +29,51 @@ jobs:
           manifest-file: .release-please-manifest.json
           target-branch: main
 
+      - name: Build publish matrix
+        id: matrix
+        env:
+          RELEASE_OUTPUTS: ${{ toJson(steps.release.outputs) }}
+        run: |
+          MATRIX=$(echo "$RELEASE_OUTPUTS" | jq -c '
+            [ to_entries[]
+              | select(.key | endswith("--tag_name"))
+              | { module: (.key | rtrimstr("--tag_name")), tag: .value }
+            ]')
+          echo "matrix=${MATRIX}" >> $GITHUB_OUTPUT
+
       - name: Release Summary
-        if: steps.release.outputs.release_created == 'true'
+        if: steps.matrix.outputs.matrix != '[]'
+        env:
+          MATRIX: ${{ steps.matrix.outputs.matrix }}
         run: |
           {
             echo "## 🎉 새로운 Release 생성 완료"
             echo ""
-            echo "- **태그**: \`${{ steps.release.outputs.tag_name }}\`"
-            echo "- **버전**: \`${{ steps.release.outputs.version }}\`"
-            echo "- **Release URL**: ${{ steps.release.outputs.html_url }}"
+            echo "| 모듈 | 태그 |"
+            echo "| --- | --- |"
+            echo "$MATRIX" | jq -r '.[] | "| \(.module) | `\(.tag)` |"'
+            echo ""
             echo "- **시간**: $(TZ='Asia/Seoul' date +'%Y-%m-%d %H:%M:%S KST')"
             echo ""
           } >> $GITHUB_STEP_SUMMARY
 
-      - name: Auto-merge SNAPSHOT PR
-        if: steps.release.outputs.release_created == 'true' && steps.release.outputs.pr != ''
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PR_JSON: ${{ steps.release.outputs.pr }}
-        run: |
-          PR_NUMBER=$(echo "$PR_JSON" | jq '.number')
-          gh pr merge "$PR_NUMBER" --auto --squash --repo ${{ github.repository }}
-
       - name: PR Summary
-        if: steps.release.outputs.pr != ''
+        if: steps.release.outputs.prs_created == 'true'
+        env:
+          PRS: ${{ steps.release.outputs.prs }}
         run: |
           {
             echo "## 📝 Release PR 업데이트됨"
             echo ""
-            echo "Conventional Commits 기반으로 다음 Release PR이 갱신되었습니다."
-            echo "PR을 머지하면 태그/Release가 생성됩니다."
+            echo "Conventional Commits 기반으로 모듈별 Release PR이 갱신되었습니다."
+            echo "PR을 머지하면 해당 모듈의 태그/Release가 생성됩니다."
+            echo ""
+            echo "$PRS" | jq -r '.[] | "- #\(.number) \(.title)"'
             echo ""
           } >> $GITHUB_STEP_SUMMARY
 
       - name: No-op Summary
-        if: steps.release.outputs.release_created != 'true' && steps.release.outputs.pr == ''
+        if: steps.matrix.outputs.matrix == '[]' && steps.release.outputs.prs_created != 'true'
         run: |
           {
             echo "## ℹ️ release-please 변경 사항 없음"
@@ -84,10 +86,15 @@ jobs:
 
   publish:
     needs: release-please
-    if: needs.release-please.outputs.release_created == 'true'
+    if: needs.release-please.outputs.publish_matrix != '[]'
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{ fromJson(needs.release-please.outputs.publish_matrix) }}
     uses: ./.github/workflows/publish.yml
     with:
-      tag: ${{ needs.release-please.outputs.tag_name }}
+      module: ${{ matrix.module }}
+      tag: ${{ matrix.tag }}
     permissions:
       contents: read
       packages: write
@@ -95,7 +102,7 @@ jobs:
 
   label-published:
     needs: [release-please, publish]
-    if: needs.release-please.outputs.release_created == 'true'
+    if: needs.release-please.outputs.publish_matrix != '[]'
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write

@@ -3,5 +3,6 @@ rootProject.name = "sample-packages"
 includeBuild("build-logic")
 
 include(
-    "sample-domain"
+    "sample-domain",
+    "sample-support"
 )

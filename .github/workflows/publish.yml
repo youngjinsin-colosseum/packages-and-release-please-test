@@ -3,14 +3,22 @@ name: ( Publish ) Publish Libraries
 on:
   workflow_call:
     inputs:
+      module:
+        description: "module (ex. sample-domain)"
+        required: true
+        type: string
       tag:
-        description: "tag (ex. v1.0.0)"
+        description: "tag (ex. sample-domain-v1.0.0)"
         required: true
         type: string
   workflow_dispatch:
     inputs:
+      module:
+        description: "module (ex. sample-domain)"
+        required: true
+        type: string
       tag:
-        description: "tag (ex. v1.0.0)"
+        description: "tag (ex. sample-domain-v1.0.0)"
         required: true
         type: string
 
@@ -37,19 +45,20 @@ jobs:
         with:
           gradle-version: wrapper
 
-      - name: Publish All Libraries to GitHub Packages
+      - name: Publish Library to GitHub Packages
         env:
           GPR_USER: x-access-token
           GPR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: ./gradlew publish
+        run: ./gradlew :${{ inputs.module }}:publish
 
       - name: Create Release Summary
         if: success()
         run: |
-          VERSION=$(grep -E '^\s*version\s*=' gradle.properties | sed -E 's/^\s*version\s*=\s*//' | tr -d ' ')
+          VERSION=$(grep -E '^\s*version\s*=' "${{ inputs.module }}/gradle.properties" | sed -E 's/^\s*version\s*=\s*//' | tr -d ' ')
           {
             echo "## 라이브러리 배포 완료 🚀"
             echo ""
+            echo "- **모듈**: \`${{ inputs.module }}\`"
             echo "- **태그**: \`${{ inputs.tag }}\`"
             echo "- **버전**: \`${VERSION}\`"
             echo "- **배포자**: ${{ github.actor }}"

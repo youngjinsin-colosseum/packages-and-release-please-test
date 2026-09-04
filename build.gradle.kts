@@ -1,3 +1,3 @@
 plugins {
-    id("sample.aggregate-javadoc")
+    base
 }
