@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.0](https://github.com/youngjinsin-colosseum/packages-and-release-please-test/compare/sample-domain-v1.10.0...sample-domain-v1.11.0) (2026-09-05)
+
+
+### Features
+
+* sample-domain 테스트용 ping 기능 추가 ([#58](https://github.com/youngjinsin-colosseum/packages-and-release-please-test/issues/58)) ([4accbc9](https://github.com/youngjinsin-colosseum/packages-and-release-please-test/commit/4accbc9345eb1adabb2c61a1cfe3c8cd247115d7))
+
 ## [1.10.0](https://github.com/youngjinsin-colosseum/packages-and-release-please-test/compare/sample-domain-v1.9.0...sample-domain-v1.10.0) (2026-09-04)
 
 
