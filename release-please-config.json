@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
   "release-type": "java",
   "include-component-in-tag": true,
-  "separate-pull-requests": true,
+  "separate-pull-requests": false,
   "bootstrap-sha": "25305c804d7974f0f7d81989f94a1a09716b2883",
   "pull-request-title-pattern": "chore(${component}): release ${version}",
   "component-no-space": true,
