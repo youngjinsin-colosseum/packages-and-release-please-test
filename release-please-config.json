@@ -5,6 +5,7 @@
   "separate-pull-requests": true,
   "bootstrap-sha": "25305c804d7974f0f7d81989f94a1a09716b2883",
   "pull-request-title-pattern": "chore(${component}): release ${version}",
+  "component-no-space": true,
   "pull-request-header": ":robot: 자동 생성된 Release PR입니다.",
   "pull-request-footer": ":mag: 검토후에 이상이 없으면 릴리즈해주세요.",
   "changelog-sections": [

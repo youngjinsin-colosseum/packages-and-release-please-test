@@ -237,6 +237,7 @@ Release PR에 이 라벨을 붙이면 release-please가 해당 PR을 갱신하�
   "separate-pull-requests": true,
   "bootstrap-sha": "25305c804d7974f0f7d81989f94a1a09716b2883",
   "pull-request-title-pattern": "chore(${component}): release ${version}",
+  "component-no-space": true,
   "changelog-sections": [
     { "type": "feat",     "section": "Features" },
     { "type": "fix",      "section": "Bug Fixes" },
@@ -258,6 +259,7 @@ Release PR에 이 라벨을 붙이면 release-please가 해당 PR을 갱신하�
 | `release-type: java` | Java 전략. SNAPSHOT 개념을 이해하는 전략입니다 |
 | `include-component-in-tag: true` | 태그에 모듈명 포함 → `sample-domain-v1.10.0` |
 | `separate-pull-requests: true` | 모듈마다 별도 Release PR |
+| `component-no-space: true` | `${component}` 앞에 공백을 자동으로 붙이는 기본 동작을 끕니다. 끄지 않으면 제목이 `chore( sample-domain)`처럼 나옵니다 |
 | `bootstrap-sha` | 릴리스 이력이 없는 모듈이 이 커밋 이후만 스캔하도록 제한. 없으면 첫 릴리스 changelog에 전체 히스토리가 딸려옵니다 |
 | `component` | 태그·PR 제목에 쓰이는 모듈 식별자 |
 | `skip-snapshot` | SNAPSHOT 승격 PR을 만들지 않음 |
